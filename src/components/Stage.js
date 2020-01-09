@@ -1,11 +1,20 @@
 import React from 'react'
 
-import { StyledStage } from './styles/StyledStage'
-
 import Cell from './Cell'
 
 const Stage = ({ stage }) => (
-    <StyledStage width={ stage[0].length } height={stage.length}>
+    <div
+        className='stage'
+        style={
+            {
+                gridTemplateRows: `repeat(
+                    ${stage.length},
+                    calc(25vw / ${stage[0].length})
+                )`,
+                gridTemplateColumns: `repeat(${stage[0].length}, 1fr)`,
+            }
+        }
+    >
         {
             stage.map((row) =>
                 row.map((cell, index) =>
@@ -13,7 +22,7 @@ const Stage = ({ stage }) => (
                 )
             )
         }
-    </StyledStage>
+    </div>
 )
 
 export default Stage

@@ -1,20 +1,15 @@
 import React, { useState } from 'react'
 
-import { createStage, checkCollision } from '../gameHelpers'
+import { createStage, checkCollision } from 'gameHelpers'
 
 // Components
-import Stage from './Stage'
-import Display from './Display'
-import StartButton from './StartButton'
+import Stage from 'components/Stage'
 
 // Custom hook
-import { useInterval } from '../hooks/useInterval'
-import { usePlayer } from '../hooks/usePlayer'
-import { useStage } from '../hooks/useStage'
-import { useGameStatus } from '../hooks/useGameStatus'
-
-// Styled component
-import { StyledTetrisWrapper, StyledTetris } from './styles/StyledTetris'
+import { useInterval } from 'hooks/useInterval'
+import { usePlayer } from 'hooks/usePlayer'
+import { useStage } from 'hooks/useStage'
+import { useGameStatus } from 'hooks/useGameStatus'
 
 const Tetris = () => {
     const [dropTime, setDropTime] = useState(null)
@@ -92,34 +87,31 @@ const Tetris = () => {
     }, dropTime)
 
     return (
-        <StyledTetrisWrapper move={move} keyUp={keyUp}>
-            <StyledTetris>
+        <div
+            className='tetrisWrapper'
+            role="button"
+            tabIndex="0"
+            onKeyDown={ (e) => move(e) }
+            onKeyUp={ (e) => keyUp(e) }
+        >
+            <div className='tetris'>
                 <Stage stage={stage} />
-                <aside
-                    style={
-                        {
-                            width: 100,
-                            maxWidth: 2000,
-                            display: 'block',
-                            padding: '0 20px',
-                        }
-                    }
-                >
+                <aside className='points'>
                     {
                         (gameOver)
-                            ? <Display gameOver={gameOver} text="Game Over" />
+                            ? <div className='display' style={ { color: (gameOver) ? 'red' : '#999' } }>Game Over</div>
                             : (
                                 <div>
-                                    <Display text={ `Score: ${score}` } />
-                                    <Display text={ `Rows: ${rows}` } />
-                                    <Display text={ `Level: ${level}` } />
+                                    <div className='display' style={ { color: (gameOver) ? 'red' : '#999' } }>{ `Score: ${score}` }</div>
+                                    <div className='display' style={ { color: (gameOver) ? 'red' : '#999' } }>{ `Rows: ${rows}` }</div>
+                                    <div className='display' style={ { color: (gameOver) ? 'red' : '#999' } }>{ `Level: ${level}` }</div>
                                 </div>
                             )
                     }
-                    <StartButton callback={ startGame /* onClick au plus bas niveau */ } />
+                    <div className='startButton' onClick={ () => startGame() }>Start Game</div>
                 </aside>
-            </StyledTetris>
-        </StyledTetrisWrapper>
+            </div>
+        </div>
     )
 }
 

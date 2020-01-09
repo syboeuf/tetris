@@ -1,11 +1,19 @@
 import React from 'react'
-import { StyledCell } from './styles/StyledCell'
-import { TETROMINOS } from '../tetrominos'
+import { TETROMINOS } from 'tetrominos'
 
 const Cell = ({ type }) => (
-    <StyledCell
-      color={TETROMINOS[type].color}
-      type={type}
+    <div
+      className='cell'
+      style={
+        {
+          background: `rgba(${TETROMINOS[type].color}, 0.8)`,
+          border: `${type === 0 ? '0px solid' : '4px solid'}`,
+          borderBottomColor: `rgba(${TETROMINOS[type].color}, 0.1)`,
+          borderRightColor: `rgba(${TETROMINOS[type].color}, 1)`,
+          borderLeftColor: `rgba(${TETROMINOS[type].color}, 0.3)`,
+          borderTopColor: `rgba(${TETROMINOS[type].color}, 1)`,
+        }
+      }
     />
 )
 
